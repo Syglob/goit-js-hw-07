@@ -10,7 +10,8 @@ console.log(galleryItems);
 // Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
 // Замена значения атрибута src элемента <img> в модальном окне перед открытием.
 // Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
-<div class="gallery__item">
+
+/* <div class="gallery__item">
   <a class="gallery__link" href="large-image.jpg">
     <img
       class="gallery__image"
@@ -19,4 +20,37 @@ console.log(galleryItems);
       alt="Image description"
     />
   </a>
-</div>;
+</div>; */
+
+createGalleryMarkup(galleryItems);
+function createGalleryMarkup(galleryItems) {
+  const gallery = document.querySelector(".gallery");
+  const galleryMarkup = galleryItems
+    .map(
+      (item) =>
+        `<div class="gallery__item">
+  <a class="gallery__link " href="${item.original}">
+    <img
+       
+      class="gallery__image "
+      src="${item.preview}"
+      data-source="${item.original}"
+      alt="${item.description}"
+    />
+  </a>
+</div>`
+    )
+    .join("");
+  gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+}
+
+// function openModalWindow(event) {
+//   const target = event.target;
+//   if (target.nodeName !== "IMG") return;
+//   const modal = document.querySelector(".gallery");
+//   const modalImage = modal.querySelector(".gallery__image");
+//   const modalImageSource = modalImage.getAttribute("data-source");
+//   modalImage.setAttribute("src", modalImageSource);
+//   modal.classList.add("is-open");
+// }
+// gallery.addEventListener("click", openModalWindow);
