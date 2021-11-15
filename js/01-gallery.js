@@ -44,8 +44,8 @@ function createGalleryMarkup(galleryItems) {
 }
 createGalleryMarkup(galleryItems);
 //modalWindow
-const gallery = document.querySelector(".gallery");
 
+const gallery = document.querySelector(".gallery");
 gallery.addEventListener("click", (event) => {
   event.preventDefault();
   const targetElem = event.target.classList.contains("gallery__image");
