@@ -21,8 +21,7 @@ console.log(galleryItems);
     />
   </a>
 </div>; */
-
-createGalleryMarkup(galleryItems);
+//insertHTML
 function createGalleryMarkup(galleryItems) {
   const gallery = document.querySelector(".gallery");
   const galleryMarkup = galleryItems
@@ -31,7 +30,7 @@ function createGalleryMarkup(galleryItems) {
         `<div class="gallery__item">
   <a class="gallery__link " href="${item.original}">
     <img
-       
+
       class="gallery__image "
       src="${item.preview}"
       data-source="${item.original}"
@@ -43,14 +42,24 @@ function createGalleryMarkup(galleryItems) {
     .join("");
   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
 }
+createGalleryMarkup(galleryItems);
+//modalWindow
+const gallery = document.querySelector(".gallery");
 
-// function openModalWindow(event) {
-//   const target = event.target;
-//   if (target.nodeName !== "IMG") return;
-//   const modal = document.querySelector(".gallery");
-//   const modalImage = modal.querySelector(".gallery__image");
-//   const modalImageSource = modalImage.getAttribute("data-source");
-//   modalImage.setAttribute("src", modalImageSource);
-//   modal.classList.add("is-open");
-// }
-// gallery.addEventListener("click", openModalWindow);
+gallery.addEventListener("click", (event) => {
+  event.preventDefault();
+  const targetElem = event.target.classList.contains("gallery__image");
+  if (!targetElem) {
+    // console.log(event.target);
+    return;
+  }
+  const srcDataSource = event.target.dataset.source;
+  const instance = basicLightbox.create(`<img src="${srcDataSource}">`);
+  instance.show();
+  //escapeBtnClose
+  window.addEventListener("keydown", (ev) => {
+    if (ev.key === "Escape") {
+      instance.close();
+    }
+  });
+});
